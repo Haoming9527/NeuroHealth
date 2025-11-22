@@ -1,7 +1,26 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const authMiddleware = require('./Auth.router');
 
 const router = express.Router();
+
+// Optional auth middleware - sets req.user if token is present, but doesn't fail if missing
+const optionalAuthMiddleware = (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = {
+        userId: decoded.userId,
+        email: decoded.email
+      };
+    }
+  } catch (error) {
+    // Silently ignore auth errors for optional auth
+  }
+  next();
+};
 
 const {
   createCalorie,
@@ -12,9 +31,10 @@ const {
   findCaloriesByUserIdAndDate,
   generateCalorie,
 } = require('../models/Calorie.model');
+const { findUserById } = require('../models/User.model');
 
-// Public endpoint - no auth required
-router.post('/generate', async (req, res, next) => {
+// Public endpoint - no auth required, but can use user data if authenticated
+router.post('/generate', optionalAuthMiddleware, async (req, res, next) => {
   try {
     const { mealType, description, portion, notes } = req.body;
     
@@ -22,11 +42,30 @@ router.post('/generate', async (req, res, next) => {
       return res.status(400).json({ message: 'Meal description is required.' });
     }
 
+    // Try to get user data if authenticated (optional)
+    let userBodyData = null;
+    if (req.user && req.user.userId) {
+      try {
+        const user = await findUserById(req.user.userId);
+        if (user) {
+          userBodyData = {
+            age: user.age,
+            height: user.height,
+            weight: user.weight,
+            bmi: user.BMI,
+          };
+        }
+      } catch (userError) {
+        // If user fetch fails, continue without user data
+      }
+    }
+
     const result = await generateCalorie({
       mealType,
       description,
       portion,
       notes,
+      userBodyData,
     });
     
     return res.status(200).json(result);

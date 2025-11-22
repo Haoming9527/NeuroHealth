@@ -41,3 +41,9 @@ module.exports.findUserByEmail = function findUserByEmail(email) {
   });
 };
 
+module.exports.findUserById = function findUserById(id) {
+  return prisma.user.findUnique({
+    where: { id },
+  });
+};
+

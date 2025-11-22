@@ -76,7 +76,7 @@ module.exports.generateCalorie = async function generateCalorie(mealData) {
 
   try {
     // Generate AI insights from Gemini
-    aiInsights = await generateGeminiCalorieInsights([entry]);
+    aiInsights = await generateGeminiCalorieInsights([entry], mealData.userBodyData);
     const exactFormatMatch = aiInsights.match(/ESTIMATED_CALORIES:\s*(\d+(?:\.\d+)?)/i);
     if (exactFormatMatch) {
       estimatedCalories = parseFloat(exactFormatMatch[1]);

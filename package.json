@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "@google/genai": "^1.30.0",
+    "@prisma/adapter-pg": "^5.20.0",
+    "@prisma/client": "^6.18.0",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.2.3",
+    "dotenv-cli": "^7.4.2",
+    "express": "^4.19.2",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.2",
+    "prisma": "^6.18.0"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "scripts": {
+    "postinstall": "npx prisma generate",
+    "migration:dev": "dotenv -- npx prisma migrate dev",
+    "migration:reset": "dotenv -- npx prisma migrate reset",
+    "start": "dotenv -- node ./src/server.js"
+  }
+}

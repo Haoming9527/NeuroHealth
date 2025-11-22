@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroHealth - Dashboard</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar dashboard-nav">
+            <div class="nav-brand">
+                <span class="brand-icon">🧠</span>
+                <span class="brand-name">NeuroHealth</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="calorie-tracker.html">Calorie Tracking</a>
+                <button id="authToggleBtn" class="btn-primary">Logout</button>
+            </div>
+        </nav>
+
+        <main class="dashboard-content">
+            <section class="dashboard-hero">
+                <div class="card welcome-card">
+                    <p class="helper-text">Personalized wellness overview</p>
+                    <h1>Welcome back, <span id="userName">Explorer</span> 👋</h1>
+                    <p>Stay on top of your nutrition by logging meals and letting Gemini-powered insights keep you aligned with your goals.</p>
+                    <div class="hero-buttons">
+                        <a href="calorie-tracker.html" class="btn-primary">Open Calorie Tracker</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 style="margin-bottom: 1rem;">Today's Calories</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Today's Total</h3>
+                            <div class="stat-value" id="todayCalories">0</div>
+                            <p class="trend-positive" id="todayMeals">0 meals logged</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Daily Average</h3>
+                            <div class="stat-value" id="avgCalories">0</div>
+                            <p class="trend-positive" id="avgDays">Based on 0 days</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>This Week</h3>
+                            <div class="stat-value" id="weekCalories">0</div>
+                            <p class="trend-positive" id="weekDays">0 days tracked</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h2 id="mealsHeader">Today's Meals</h2>
+                        <p class="helper-text" id="mealsSubheader">Your calorie entries for today</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <button id="prevDayBtn" class="btn-ghost" style="padding: 0.5rem;">←</button>
+                            <input type="date" id="dateFilter" style="padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--background); color: var(--text-primary);">
+                            <button id="nextDayBtn" class="btn-ghost" style="padding: 0.5rem;">→</button>
+                            <button id="todayBtn" class="btn-ghost" style="padding: 0.5rem 1rem;">Today</button>
+                        </div>
+                        <a href="calorie-tracker.html" class="btn-secondary">Log a meal</a>
+                    </div>
+                </div>
+                <div class="recent-list" id="recentEntries"></div>
+                <div class="empty-state" id="emptyState">No meals logged for this date. Head over to the tracker to add your first one!</div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../middleware/middleware.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

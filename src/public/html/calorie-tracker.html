@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroHealth - Calorie Tracking</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar dashboard-nav">
+            <div class="nav-brand">
+                <span class="brand-icon">🧠</span>
+                <span class="brand-name">NeuroHealth</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="calorie-tracker.html">Calorie Tracking</a>
+                <button id="authToggleBtn" class="btn-primary">Logout</button>
+            </div>
+        </nav>
+
+        <main>
+            <section class="dashboard-content" style="padding-bottom: 0;">
+                <div class="card welcome-card">
+                    <p class="helper-text">AI-powered nutrition tracking</p>
+                    <h1>Calories powered by Gemini</h1>
+                    <p>Log what you eat and get instant calorie estimates, macro insights, and tailored nutrition advice powered by Google's Gemini AI.</p>
+                    <div class="hero-buttons">
+                        <span class="user-chip" id="userChip">Loading...</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="tracker-layout">
+                <aside class="tracker-sidebar">
+                    <div class="card">
+                        <h2 style="margin-bottom: 1rem;">Log your meal</h2>
+                        <form id="mealForm" class="tracker-form">
+                            <div class="input-group">
+                                <label for="mealType">Meal type</label>
+                                <select id="mealType" required>
+                                    <option value="Breakfast">Breakfast</option>
+                                    <option value="Lunch">Lunch</option>
+                                    <option value="Dinner">Dinner</option>
+                                    <option value="Snack">Snack</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="mealDescription">What did you eat?</label>
+                                <textarea id="mealDescription" placeholder="E.g. Grilled chicken, brown rice and steamed broccoli" required></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label for="mealPortion">Portion / quantity</label>
+                                <input id="mealPortion" type="text" placeholder="1 bowl / 200g" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="mealNotes">Notes (optional)</label>
+                                <input id="mealNotes" type="text" placeholder="Extra sauces? Drinks? Mood?">
+                            </div>
+                            <div class="hero-buttons" style="gap: 0.5rem; margin-top: 0.5rem;">
+                                <button type="button" id="analyzeMealBtn" class="btn-primary">Analyze with Gemini</button>
+                                <button type="button" id="saveMealBtn" class="btn-secondary" disabled>Save meal</button>
+                            </div>
+                        </form>
+                        <p class="helper-text" id="formStatus"></p>
+                    </div>
+
+                    <div class="card helper-card">
+                        <h3>How Gemini will help</h3>
+                        <ul class="helper-list">
+                            <li>Estimate total calories and macros per meal.</li>
+                            <li>Flag nutrient gaps and daily streaks.</li>
+                            <li>Send quick AI tips to balance your plan.</li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <section class="card">
+                    <header style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2>AI Analysis</h2>
+                            <p class="helper-text">Get instant calorie estimates and nutrition insights</p>
+                        </div>
+                        <div class="entry-actions">
+                            <button type="button" id="clearBtn" class="btn-ghost">Clear form</button>
+                        </div>
+                    </header>
+
+                    <div id="aiResultContainer" style="display: none;">
+                        <div class="calorie-display-card">
+                            <div class="calorie-value" id="calorieValue">-</div>
+                            <div class="calorie-label">Estimated Calories</div>
+                        </div>
+                        <div class="ai-insights" id="aiInsights"></div>
+                    </div>
+
+                    <div class="empty-state" id="emptyState">Fill out the form and click "Analyze with Gemini" to get started.</div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../middleware/middleware.js"></script>
+    <script src="../js/calorie-tracker.js"></script>
+</body>
+</html>
+

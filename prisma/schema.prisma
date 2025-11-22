@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  // previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int                @id @default(autoincrement())
+  username      String
+  password      String
+  email         String             @unique
+  age           Int?
+  height        Float?
+  weight        Float?
+  BMI           Float?
+  goals         Goal[]
+  calories      Calorie[]
+  conversations Conversation[]
+
+  @@map("users")
+}
+
+model Goal {
+  id              Int      @id @default(autoincrement())
+  userId          Int      @map("user_id")
+  goalWeight      Float?   @map("goal_weight")
+  goalBMI         Float?   @map("goal_BMI")
+  goalDescription String?  @map("goal_description")
+  createdTime     DateTime @default(now()) @map("created_time")
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("goals")
+}
+
+model Calorie {
+  id                  Int      @id @default(autoincrement())
+  userId              Int      @map("user_id")
+  userFoodIntake      String?  @map("user_food_intake")
+  aiEstimateCalories  Float?   @map("ai_estimate_calories")
+  createdDate         DateTime @default(now()) @map("created_date")
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("calories")
+}
+
+model Conversation {
+  id                Int                   @id @default(autoincrement())
+  userId            Int                   @map("user_id")
+  title             String?
+  user              User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversationDetails ConversationDetail[]
+
+  @@map("conversations")
+}
+
+model ConversationDetail {
+  id              Int          @id @default(autoincrement())
+  conversationId  Int          @map("conversation_id")
+  aiMessage       String?      @map("ai_message")
+  userMessage     String?      @map("user_message")
+  createdTime     DateTime     @default(now()) @map("created_time")
+  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@map("conversation_detail")
+}

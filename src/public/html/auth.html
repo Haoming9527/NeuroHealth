@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroHealth - Login & Register</title>
+    <link rel="stylesheet" href="../styles/auth-styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="../index.html" class="back-home">
+                <span>←</span> Back to Home
+            </a>
+            <div class="brand">
+                <span class="brand-icon">🧠</span>
+                <span class="brand-name">NeuroHealth</span>
+            </div>
+        </div>
+
+        <div class="auth-card" id="authCard">
+            <!-- Login Form -->
+            <div class="form-container" id="loginForm">
+                <h2 class="form-title">Welcome Back</h2>
+                <p class="form-subtitle">Sign in to continue your health journey</p>
+
+                <div class="error-message" id="loginError"></div>
+
+                <form id="loginFormElement">
+                    <div class="input-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="loginEmail" 
+                            placeholder="you@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="loginPassword">Password</label>
+                        <input 
+                            type="password" 
+                            id="loginPassword" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-footer">
+                        <a href="#" class="link-text">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="loginBtn">
+                        <span class="btn-text">Sign In</span>
+                        <span class="btn-loader" style="display: none;"></span>
+                    </button>
+                </form>
+
+                <div class="form-switch">
+                    <span>Don't have an account?</span>
+                    <a href="#" id="showRegister" class="link-text">Create one</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="form-container hidden" id="registerForm">
+                <h2 class="form-title">Create Account</h2>
+                <p class="form-subtitle">Start your wellness journey today</p>
+
+                <div class="error-message" id="registerError"></div>
+
+                <form id="registerFormElement">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="registerUsername">Username</label>
+                            <input 
+                                type="text" 
+                                id="registerUsername" 
+                                placeholder="neuro_user"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label for="registerAge">Age</label>
+                            <input 
+                                type="number" 
+                                id="registerAge" 
+                                placeholder="25"
+                                min="13"
+                                max="120"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="registerEmail">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="registerEmail" 
+                            placeholder="you@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="registerPassword">Password</label>
+                        <input 
+                            type="password" 
+                            id="registerPassword" 
+                            placeholder="Min. 8 characters"
+                            required
+                        >
+                        <small class="input-hint">Must be at least 8 characters</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="registerHeight">Height (cm)</label>
+                            <input 
+                                type="number" 
+                                id="registerHeight" 
+                                placeholder="170"
+                                min="100"
+                                max="250"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label for="registerWeight">Weight (kg)</label>
+                            <input 
+                                type="number" 
+                                id="registerWeight" 
+                                placeholder="70"
+                                min="30"
+                                max="300"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="registerBtn">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-loader" style="display: none;"></span>
+                    </button>
+                </form>
+
+                <div class="form-switch">
+                    <span>Already have an account?</span>
+                    <a href="#" id="showLogin" class="link-text">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../middleware/middleware.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>
